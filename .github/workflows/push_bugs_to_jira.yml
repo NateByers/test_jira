@@ -6,20 +6,25 @@ on:
       - opened
 
 jobs:
-  create-jira-card:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
 
-      - name: Create Jira Bug Card
-        env:
-          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
-          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
-          JIRA_ORGANIZATION_ID: ${{ secrets.JIRA_ORGANIZATION_ID }}
-          JIRA_API_KEY: ${{ secrets.JIRA_API_TOKEN }}
-          JIRA_PROJECT_KEY: "TEST" # Replace with your Jira project key
-          GITHUB_ISSUE_TYPE: ${{ toJson(github.event.issue.labels.*.name) }}
-        run: |
-          echo "$GITHUB_ISSUE_TYPE"
-          
+  run_dbt_cloud_job:
+    name: Run dbt Cloud Job
+    runs-on: ubuntu-latest
+    
+    env:
+      JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+      JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+      JIRA_ORGANIZATION_ID: ${{ secrets.JIRA_ORGANIZATION_ID }}
+      JIRA_API_KEY: ${{ secrets.JIRA_API_TOKEN }}
+      JIRA_PROJECT_KEY: "TEST" # Replace with your Jira project key
+      GITHUB_ISSUE_TYPE: ${{ github.event.issue.labels.*.name }}
+
+    steps:
+      - uses: "actions/checkout@v3"
+      - uses: "actions/setup-python@v4"
+        with:
+          python-version: "3.9"   
+          cache: 'pip' # caching pip dependencies
+      - run: pip install -r python/requirements.txt
+      - name: push_jira_bug_card
+        run: "python python/push_jira_bug_card.py"
