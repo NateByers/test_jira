@@ -22,4 +22,4 @@ jobs:
         run: |
           echo "Issue title: ${{ github.event.issue.title }}"
           echo "Issue body: ${{ github.event.issue.body }}"
-          echo "Issue type: ${{ github.event.issue.labels}}"
+          echo "Issue type: ${{ github.event.issue.labels.*.name}}"
