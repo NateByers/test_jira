@@ -7,7 +7,7 @@ on:
 
 jobs:
   create-jira-card:
-    if: toJson(github.event.issue.labels.*.name) == 'bug'
+    if: toJson(github.event.issue.labels.*.name)[0] == 'bug'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
