@@ -28,4 +28,6 @@ jobs:
           JIRA_API_KEY: ${{ secrets.JIRA_API_KEY }}
           JIRA_PROJECT_KEY: "TEST"
           GITHUB_ISSUE_TYPE: ${{ toJson(github.event.issue.labels.*.name) }}
+          GITHUB_ISSUE_TITLE: ${{ github.event.issue.title }}
+          GITHUB_ISSUE_BODY: ${{ github.event.issue.body }}
         run: "python python/push_jira_bug_card.py"
