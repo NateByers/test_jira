@@ -20,6 +20,7 @@ jobs:
           JIRA_ORGANIZATION_ID: ${{ secrets.JIRA_ORGANIZATION_ID }}
           JIRA_API_KEY: ${{ secrets.JIRA_API_TOKEN }}
           JIRA_PROJECT_KEY: "TEST" # Replace with your Jira project key
+          GITHUB_ISSUE_TYPE: ${{ toJson(github.event.issue.labels.*.name) }}
         run: |
-          echo "${{ toJson(github.event.issue.labels.*.name) }}"
+          echo "$GITHUB_ISSUE_TYPE"
           
