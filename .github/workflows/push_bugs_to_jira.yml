@@ -3,14 +3,11 @@ name: Create Jira Bug Card on Issue Creation
 on:
   issues:
     types:
-      - [opened, labeled]
+      - opened
 
 jobs:
   create-jira-card:
     runs-on: ubuntu-latest
-    if: >
-      github.event_name == 'opened' && contains(github.event.issue.labels.*.name, 'bug') ||
-      github.event_name == 'labeled' && github.event.label.name == 'bug'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
