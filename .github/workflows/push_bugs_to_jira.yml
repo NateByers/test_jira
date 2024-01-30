@@ -25,7 +25,7 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_ORGANIZATION_ID: ${{ secrets.JIRA_ORGANIZATION_ID }}
-          JIRA_API_KEY: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_API_KEY: ${{ secrets.JIRA_API_KEY }}
           JIRA_PROJECT_KEY: "TEST"
           GITHUB_ISSUE_TYPE: ${{ toJson(github.event.issue.labels.*.name) }}
         run: "python python/push_jira_bug_card.py"
