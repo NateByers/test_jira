@@ -1,3 +1,4 @@
+import os
 import requests
 
 jira_base_url        = os.environ['JIRA_BASE_URL']  
