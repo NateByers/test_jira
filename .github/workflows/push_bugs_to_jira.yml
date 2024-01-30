@@ -2,7 +2,8 @@ name: Create Jira Bug Card on Issue Creation
 
 on:
   issues:
-    types: [opened]
+    types:
+      - opened
 
 jobs:
   create-jira-card:
