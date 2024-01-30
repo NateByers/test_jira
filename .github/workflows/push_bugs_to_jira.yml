@@ -7,6 +7,7 @@ on:
 
 jobs:
   create-jira-card:
+    if: toJson(github.event.issue.labels.*.name) == 'bug'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,15 +21,5 @@ jobs:
           JIRA_API_KEY: ${{ secrets.JIRA_API_TOKEN }}
           JIRA_PROJECT_KEY: "TEST" # Replace with your Jira project key
         run: |
-          LABELS="${{ toJson(github.event.issue.labels.*.name) }}"
-          if [[ $LABELS == *'"bug"'* ]]; then
-            echo "Found bug label"
-            echo "has_bug_label=true" >> $GITHUB_ENV
-          else
-            echo "Bug label not found"
-            echo "has_bug_label=false" >> $GITHUB_ENV
-
-      - name: Further steps
-        if: env.has_bug_label == 'true'
-        run: |
-          echo "Executing steps for issues with bug label"
+          echo "${{ toJson(github.event.issue.labels.*.name) }}"
+          
