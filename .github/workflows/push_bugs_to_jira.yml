@@ -20,4 +20,5 @@ jobs:
           JIRA_API_KEY: ${{ secrets.JIRA_API_TOKEN }}
           JIRA_PROJECT_KEY: "TEST" # Replace with your Jira project key
         run: |
-          echo "Hello"
+          echo "Issue title: ${{ github.event.issue.title }}"
+          echo "Issue body: ${{ github.event.issue.body }}"
